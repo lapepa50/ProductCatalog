@@ -1,0 +1,44 @@
+﻿@model IEnumerable<ProductCatalog.Models.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h1>Products</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a> <!-- link to create a new product -->
+</p>
+
+@if (!Model.Any())
+{
+    <p>No products found.</p> 
+    // if the model is empty, display a message indicating that there are no products available
+}
+else
+{
+    <table class="table table-striped">
+        <!-- creates a table to display the products -->
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) // iterates through each product in the model and display its details in a table row
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
